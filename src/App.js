@@ -84,20 +84,46 @@ class App extends Component {
       endDate: moment().add(7, 'days'),
       subreddit: ''
     }
+    this.changeStartDate = this.changeStartDate.bind(this);
+    this.changeEndDate = this.changeEndDate.bind(this);
+    this.changeSubreddit = this.changeSubreddit.bind(this);
   }
+
+  changeStartDate(date) {
+    this.setState({
+      startDate: date
+    });
+  }
+
+  changeEndDate(date) {
+    this.setState({
+      endDate: date
+    });
+  }
+
+  changeSubreddit(event) {
+    this.setState({
+      subreddit: event.target.value
+    });
+  }
+
   render() {
+    const dateDisplayFormat = 'MMM DD, YYYY';
     return (
       <div className="App">
         <Header />
         <LinkController
           redditLink="#"
-          startDate={this.state.startDate.format('MMM DD, YYYY')}
-          endDate={this.state.endDate.format('MMMM DD, YYYY')}
+          startDate={this.state.startDate.format(dateDisplayFormat)}
+          endDate={this.state.endDate.format(dateDisplayFormat)}
         />
         <DateForm
           startDate={this.state.startDate}
           endDate={this.state.endDate}
           subreddit={this.state.subreddit}
+          changeStartDate={this.changeStartDate}
+          changeEndDate={this.changeEndDate}
+          changeSubreddit={this.changeSubreddit}
         />
       </div>
     );
