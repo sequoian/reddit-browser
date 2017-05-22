@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import moment from 'moment';
+import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import './reset.css';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -77,16 +77,28 @@ class DateForm extends Component {
 }
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: moment(),
+      endDate: moment().add(7, 'days'),
+      subreddit: ''
+    }
+  }
   render() {
     return (
       <div className="App">
         <Header />
         <LinkController
           redditLink="#"
-          startDate="May 19, 2017"
-          endDate="May 22, 2017"
+          startDate={this.state.startDate.format('MMM DD, YYYY')}
+          endDate={this.state.endDate.format('MMMM DD, YYYY')}
         />
-        <DateForm />
+        <DateForm
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          subreddit={this.state.subreddit}
+        />
       </div>
     );
   }
