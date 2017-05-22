@@ -17,19 +17,34 @@ class Header extends Component {
 }
 
 class LinkController extends Component {
+  createLink() {
+    const startTime = this.props.startDate.unix();
+    const endTime = this.props.endDate.unix();
+    const subreddit = this.props.subreddit || 'all';
+
+    return `https://www.reddit.com/r/${subreddit}/search?q=timestamp:${startTime}..${endTime}&sort=top&restrict_sr=on&syntax=cloudsearch`
+  }
+
   render() {
-    return (
-      <div>
-        <a href={this.props.redditLink} id="reddit-link">Browse!</a>
+    if (this.props.startDate && this.props.endDate) {
+      const link = this.createLink()
+      const dateDisplayFormat = 'MMM DD, YYYY';
+      return (
         <div>
-          <button onClick={this.props.moveDateBackward}>Previous</button>
-          <span className="range-display">
-            {this.props.startDate} - {this.props.endDate}
-          </span>
-          <button onClick={this.props.moveDateForward}>Next</button>
+          <a href={link} id="reddit-link">Browse!</a>
+          <div>
+            <button onClick={this.props.moveDateBackward}>Previous</button>
+            <span className="range-display">
+              {this.props.startDate.format(dateDisplayFormat)} - {this.props.endDate.format(dateDisplayFormat)}
+            </span>
+            <button onClick={this.props.moveDateForward}>Next</button>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+    else {
+      return null;
+    }  
   }
 }
 
@@ -80,8 +95,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: moment(),
-      endDate: moment().add(7, 'days'),
+      startDate: null,
+      endDate: null,
       subreddit: ''
     }
     this.changeStartDate = this.changeStartDate.bind(this);
@@ -108,14 +123,14 @@ class App extends Component {
   }
 
   render() {
-    const dateDisplayFormat = 'MMM DD, YYYY';
+    
     return (
       <div className="App">
         <Header />
         <LinkController
-          redditLink="#"
-          startDate={this.state.startDate.format(dateDisplayFormat)}
-          endDate={this.state.endDate.format(dateDisplayFormat)}
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          subreddit={this.state.subreddit}
         />
         <DateForm
           startDate={this.state.startDate}
