@@ -38,7 +38,7 @@ class LinkController extends Component {
       const range = this.props.getDateRange();
       return (
         <div>
-          <a href={link} id="reddit-link">Browse!</a>
+          <a href={link} id="reddit-link" className="active">Browse!</a>
           <div>
             <button onClick={this.props.moveDateBackward}>Previous</button>
             <span className="range-display">
@@ -53,7 +53,12 @@ class LinkController extends Component {
       );
     }
     else {
-      return null;
+      return(
+        <div>
+          <div id="reddit-link">Browse!</div>
+          <p>Select the dates to see the top posts for that date range.</p>
+        </div>
+      );
     }  
   }
 }
@@ -109,8 +114,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: moment(),
-      endDate: moment().add(6, 'days'),
+      startDate: null,
+      endDate: null,
       subreddit: ''
     }
     this.changeStartDate = this.changeStartDate.bind(this);
