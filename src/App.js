@@ -39,6 +39,7 @@ class LinkController extends Component {
             </span>
             <button onClick={this.props.moveDateForward}>Next</button>
           </div>
+          <div>Range: {this.props.getDateRange()} days</div>
         </div>
       );
     }
@@ -130,9 +131,9 @@ class App extends Component {
   }
 
   moveDateForward() {
-    const range = this.getDateRange();
     if (this.state.startDate && this.state.endDate) {
       this.setState((prevState) => {
+        const range = this.getDateRange();
         const newStart = prevState.startDate.add(range, 'days');
         const newEnd = prevState.endDate.add(range, 'days');
         return {
@@ -144,9 +145,9 @@ class App extends Component {
   }
 
   moveDateBackward() {
-    const range = this.getDateRange();
     if (this.state.startDate && this.state.endDate) {
       this.setState((prevState) => {
+        const range = this.getDateRange();
         const newStart = prevState.startDate.subtract(range, 'days');
         const newEnd = prevState.endDate.subtract(range, 'days');
         return {
@@ -173,6 +174,7 @@ class App extends Component {
           subreddit={this.state.subreddit}
           moveDateForward={this.moveDateForward}
           moveDateBackward={this.moveDateBackward}
+          getDateRange={this.getDateRange}
         />
         <DateForm
           startDate={this.state.startDate}
