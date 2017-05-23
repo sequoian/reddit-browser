@@ -49,6 +49,8 @@ class LinkController extends Component {
 }
 
 class DateForm extends Component {
+  
+
   render() {
     return (
       <form>
@@ -61,9 +63,11 @@ class DateForm extends Component {
           selectsStart
           startDate={this.props.startDate}
           endDate={this.props.endDate}
+          maxDate={this.props.endDate}
           showMonthDropdown
           showYearDropdown
           dropdownMode="select"
+          isClearable={true}
         />
         <label htmlFor="end-date">To:</label>
         <DatePicker 
@@ -74,9 +78,11 @@ class DateForm extends Component {
           selectsEnd
           startDate={this.props.startDate}
           endDate={this.props.endDate}
+          minDate={this.props.startDate}
           showMonthDropdown
           showYearDropdown
-          dropdownMode="select"        
+          dropdownMode="select" 
+          isClearable={true}       
         />
         <label htmlFor="subreddit">Subreddit:</label>
         <input 
@@ -95,13 +101,16 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: null,
-      endDate: null,
+      startDate: moment(),
+      endDate: moment().add(6, 'days'),
       subreddit: ''
     }
     this.changeStartDate = this.changeStartDate.bind(this);
     this.changeEndDate = this.changeEndDate.bind(this);
     this.changeSubreddit = this.changeSubreddit.bind(this);
+    this.moveDateForward = this.moveDateForward.bind(this);
+    this.moveDateBackward = this.moveDateBackward.bind(this);
+    this.getDateRange = this.getDateRange.bind(this);
   }
 
   changeStartDate(date) {
@@ -122,8 +131,27 @@ class App extends Component {
     });
   }
 
+  moveDateForward() {
+    if (this.state.startDate && this.state.endDate) {
+      console.log(this.getDateRange());
+    }
+  }
+
+  moveDateBackward() {
+    if (this.state.startDate && this.state.endDate) {
+      console.log(this.getDateRange());
+    }
+  }
+
+  getDateRange() {
+    const difference = this.state.startDate.diff(this.state.endDate);
+    const duration = moment.duration(Math.abs(difference));
+    return Math.round(duration.asDays());
+  }
+
   render() {
-    
+
+
     return (
       <div className="App">
         <Header />
@@ -131,6 +159,8 @@ class App extends Component {
           startDate={this.state.startDate}
           endDate={this.state.endDate}
           subreddit={this.state.subreddit}
+          moveDateForward={this.moveDateForward}
+          moveDateBackward={this.moveDateBackward}
         />
         <DateForm
           startDate={this.state.startDate}
