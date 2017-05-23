@@ -107,6 +107,7 @@ class App extends Component {
     this.changeStartDate = this.changeStartDate.bind(this);
     this.changeEndDate = this.changeEndDate.bind(this);
     this.changeSubreddit = this.changeSubreddit.bind(this);
+    this.moveDates = this.moveDates.bind(this);
     this.moveDateForward = this.moveDateForward.bind(this);
     this.moveDateBackward = this.moveDateBackward.bind(this);
     this.getDateRange = this.getDateRange.bind(this);
@@ -130,12 +131,17 @@ class App extends Component {
     });
   }
 
-  moveDateForward() {
+  /**
+   * Moves the current date range forward or backward in time by the length of the range.
+   * Callback is expected to be a moment.js mutation: add or subtract, which causes
+   * the range to move forward or backward in time, respectively.
+   */ 
+  moveDates(callback) {
     if (this.state.startDate && this.state.endDate) {
       this.setState((prevState) => {
         const range = this.getDateRange();
-        const newStart = prevState.startDate.add(range, 'days');
-        const newEnd = prevState.endDate.add(range, 'days');
+        const newStart = callback.apply(prevState.startDate, [range, 'days'])
+        const newEnd = callback.apply(prevState.endDate, [range, 'days']);
         return {
           startDate: newStart,
           endDate: newEnd
@@ -144,18 +150,12 @@ class App extends Component {
     }
   }
 
+  moveDateForward() {
+    this.moveDates(moment.prototype.add);
+  }
+
   moveDateBackward() {
-    if (this.state.startDate && this.state.endDate) {
-      this.setState((prevState) => {
-        const range = this.getDateRange();
-        const newStart = prevState.startDate.subtract(range, 'days');
-        const newEnd = prevState.endDate.subtract(range, 'days');
-        return {
-          startDate: newStart,
-          endDate: newEnd
-        };
-      });
-    }
+    this.moveDates(moment.prototype.subtract);
   }
 
   getDateRange() {
