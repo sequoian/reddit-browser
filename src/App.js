@@ -18,8 +18,14 @@ class Header extends Component {
 
 class LinkController extends Component {
   createLink() {
-    const startTime = this.props.startDate.unix();
-    const endTime = this.props.endDate.unix();
+    // Create new moments from props, then change their time value to fully cover range
+    const startDate = moment(this.props.startDate);
+    const endDate = moment(this.props.endDate);
+    startDate.startOf('day');
+    endDate.endOf('day');
+
+    const startTime = startDate.unix();
+    const endTime = endDate.unix();
     const subreddit = this.props.subreddit || 'all';
 
     return `https://www.reddit.com/r/${subreddit}/search?q=timestamp:${startTime}..${endTime}&sort=top&restrict_sr=on&syntax=cloudsearch`
@@ -29,6 +35,7 @@ class LinkController extends Component {
     if (this.props.startDate && this.props.endDate) {
       const link = this.createLink()
       const dateDisplayFormat = 'MMM DD, YYYY';
+      const range = this.props.getDateRange();
       return (
         <div>
           <a href={link} id="reddit-link">Browse!</a>
@@ -39,7 +46,9 @@ class LinkController extends Component {
             </span>
             <button onClick={this.props.moveDateForward}>Next</button>
           </div>
-          <div>Range: {this.props.getDateRange()} days</div>
+          <div>
+            Range: {range} {range === 1 ? 'day' : 'days'}
+          </div>   
         </div>
       );
     }
@@ -161,7 +170,7 @@ class App extends Component {
   getDateRange() {
     const difference = this.state.startDate.diff(this.state.endDate);
     const duration = moment.duration(Math.abs(difference));
-    return Math.round(duration.asDays());
+    return Math.round(duration.asDays() + 1); // add 1 to include endDate in range
   }
 
   render() {
