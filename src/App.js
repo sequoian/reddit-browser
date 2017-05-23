@@ -49,8 +49,6 @@ class LinkController extends Component {
 }
 
 class DateForm extends Component {
-  
-
   render() {
     return (
       <form>
@@ -132,14 +130,30 @@ class App extends Component {
   }
 
   moveDateForward() {
+    const range = this.getDateRange();
     if (this.state.startDate && this.state.endDate) {
-      console.log(this.getDateRange());
+      this.setState((prevState) => {
+        const newStart = prevState.startDate.add(range, 'days');
+        const newEnd = prevState.endDate.add(range, 'days');
+        return {
+          startDate: newStart,
+          endDate: newEnd
+        };
+      });
     }
   }
 
   moveDateBackward() {
+    const range = this.getDateRange();
     if (this.state.startDate && this.state.endDate) {
-      console.log(this.getDateRange());
+      this.setState((prevState) => {
+        const newStart = prevState.startDate.subtract(range, 'days');
+        const newEnd = prevState.endDate.subtract(range, 'days');
+        return {
+          startDate: newStart,
+          endDate: newEnd
+        };
+      });
     }
   }
 
@@ -150,8 +164,6 @@ class App extends Component {
   }
 
   render() {
-
-
     return (
       <div className="App">
         <Header />
