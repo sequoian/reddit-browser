@@ -81,4 +81,28 @@ header h1 {
 form {
   border: 1px solid #777;
   border-radius: 7px;
+  padding: 10px;
 }
+
+form label {
+  display: block;
+  padding-bottom: 2px;
+}
+
+form > div {
+  padding-bottom: 10px;
+}
+
+.dates {
+  display: flex;
+  justify-content: center;
+}
+
+.dates > div {
+  flex: 1;
+}
+
+input[type="text"] {
+  padding: 2px;
+}
+

@@ -67,6 +67,8 @@ class DateForm extends Component {
   render() {
     return (
       <form>
+        <div className="dates">
+        <div>
         <label htmlFor="start-date">From:</label>
         <DatePicker 
           id="start-date" 
@@ -82,6 +84,8 @@ class DateForm extends Component {
           dropdownMode="select"
           isClearable={true}
         />
+        </div>
+        <div>
         <label htmlFor="end-date">To:</label>
         <DatePicker 
           id="end-date" 
@@ -97,6 +101,9 @@ class DateForm extends Component {
           dropdownMode="select" 
           isClearable={true}       
         />
+        </div>
+        </div>
+        <div>
         <label htmlFor="subreddit">Subreddit:</label>
         <input 
           type="text" 
@@ -105,6 +112,7 @@ class DateForm extends Component {
           value={this.props.subreddit}
           onChange={this.props.changeSubreddit} 
         />
+        </div>
       </form>
     );
   }
