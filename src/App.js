@@ -37,16 +37,16 @@ class LinkController extends Component {
       const dateDisplayFormat = 'MMM DD, YYYY';
       const range = this.props.getDateRange();
       return (
-        <div>
+        <div id="link-area">
           <a href={link} id="reddit-link" className="active">Browse!</a>
           <div>
             <button onClick={this.props.moveDateBackward}>Previous</button>
-            <span className="range-display">
+            <span className="date-display">
               {this.props.startDate.format(dateDisplayFormat)} - {this.props.endDate.format(dateDisplayFormat)}
             </span>
             <button onClick={this.props.moveDateForward}>Next</button>
           </div>
-          <div>
+          <div className="range-display">
             Range: {range} {range === 1 ? 'day' : 'days'}
           </div>   
         </div>
@@ -54,7 +54,7 @@ class LinkController extends Component {
     }
     else {
       return(
-        <div>
+        <div id="link-area">
           <div id="reddit-link">Browse!</div>
           <p>Select the dates to see the top posts for that date range.</p>
         </div>
