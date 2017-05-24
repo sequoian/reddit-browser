@@ -68,50 +68,50 @@ class DateForm extends Component {
     return (
       <form>
         <div className="dates">
-        <div>
-        <label htmlFor="start-date">From:</label>
-        <DatePicker 
-          id="start-date" 
-          placeholderText="Click to select a date" 
-          selected={this.props.startDate}
-          onChange={this.props.changeStartDate}
-          selectsStart
-          startDate={this.props.startDate}
-          endDate={this.props.endDate}
-          maxDate={this.props.endDate}
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-          isClearable={true}
-        />
+          <div>
+            <label htmlFor="start-date">From:</label>
+            <DatePicker 
+              id="start-date" 
+              placeholderText="Click to select a date" 
+              selected={this.props.startDate}
+              onChange={this.props.changeStartDate}
+              selectsStart
+              startDate={this.props.startDate}
+              endDate={this.props.endDate}
+              maxDate={this.props.endDate}
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+              isClearable={true}
+            />
+          </div>
+          <div>
+            <label htmlFor="end-date">To:</label>
+            <DatePicker 
+              id="end-date" 
+              placeholderText="Click to select a date" 
+              selected={this.props.endDate}
+              onChange={this.props.changeEndDate}
+              selectsEnd
+              startDate={this.props.startDate}
+              endDate={this.props.endDate}
+              minDate={this.props.startDate}
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select" 
+              isClearable={true}       
+          />
+          </div>
         </div>
         <div>
-        <label htmlFor="end-date">To:</label>
-        <DatePicker 
-          id="end-date" 
-          placeholderText="Click to select a date" 
-          selected={this.props.endDate}
-          onChange={this.props.changeEndDate}
-          selectsEnd
-          startDate={this.props.startDate}
-          endDate={this.props.endDate}
-          minDate={this.props.startDate}
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select" 
-          isClearable={true}       
-        />
-        </div>
-        </div>
-        <div>
-        <label htmlFor="subreddit">Subreddit:</label>
-        <input 
-          type="text" 
-          placeholder="all" 
-          id="subreddit"
-          value={this.props.subreddit}
-          onChange={this.props.changeSubreddit} 
-        />
+          <label htmlFor="subreddit">Subreddit:</label>
+          <input 
+            type="text" 
+            placeholder="all" 
+            id="subreddit"
+            value={this.props.subreddit}
+            onChange={this.props.changeSubreddit} 
+          />
         </div>
       </form>
     );
