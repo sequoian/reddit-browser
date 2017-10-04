@@ -132,6 +132,24 @@ class App extends Component {
     this.getDateRange = this.getDateRange.bind(this);
   }
 
+  componentDidMount() {
+    fetch('/api')
+      .then(response => {
+        if (response.status > 400) {
+          throw new Error(response.status)
+        }
+        else {
+          return response.json()
+        }  
+      })
+      .then(json => {
+        console.log(json)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }
+
   changeStartDate(date) {
     this.setState({
       startDate: date
