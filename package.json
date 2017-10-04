@@ -1,25 +1,19 @@
 {
   "name": "reddit-browser",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://sequoian.github.io/reddit-browser",
-  "dependencies": {
-    "gh-pages": "^1.0.0",
-    "material-ui": "^0.18.1",
-    "moment": "^2.18.1",
-    "react": "^15.5.4",
-    "react-datepicker": "^0.46.0",
-    "react-dom": "^15.5.4"
-  },
-  "devDependencies": {
-    "react-scripts": "1.0.5"
-  },
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "start": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sequoian/reddit-browser.git"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "react/node_modules"
+  ],
+  "dependencies": {
+    "express": "^4.16.1"
   }
 }

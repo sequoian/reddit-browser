@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
-import './reset.css';
-import 'react-datepicker/dist/react-datepicker.css';
-import './App.css';
 
 class Header extends Component {
   render() {
