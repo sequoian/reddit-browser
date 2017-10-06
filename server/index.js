@@ -11,16 +11,29 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const global_access_token = getAccessToken()
+
 // test route
-app.get('/api', (req, res) => {
+app.get('/search', (req, res) => {
+  const subreddit = req.query.sub || null
+  const startTime = req.query.start || null
+  const endTime = req.query.end || null
+
+  if (!subreddit || !startTime || !endTime) {
+    res.status(400).end()
+  }
+
+  const url = `https://oauth.reddit.com/r/${subreddit}/search.json?q=timestamp:${startTime}..${endTime}&sort=top&restrict_sr=1&syntax=cloudsearch`
+  
+  
   axios({
     method: 'get',
-    url: 'https://oauth.reddit.com/r/aww/top/.json', 
+    url: url, 
     headers: {
       'Authorization': `bearer ${global_access_token}`
     }
   })
     .then(response => {
+      console.log(response)
       res.status(200).json(response.data)
     })
     .catch(error => {

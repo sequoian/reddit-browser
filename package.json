@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node server"
+    "start": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "dependencies": {
     "axios": "^0.16.2",
     "express": "^4.16.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
